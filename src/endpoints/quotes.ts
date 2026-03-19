@@ -1,15 +1,15 @@
 import { OpenAPIRoute, Str } from "chanfana";
 import { z } from "zod";
 import { type AppContext } from "../types";
-import { COMMENTS_LIST } from "../data/comment-list";
+import { QUOTES_LIST } from "../data/quotes-list";
 
-export class RandomComment extends OpenAPIRoute {
+export class RandomQuote extends OpenAPIRoute {
   schema = {
-    tags: ["Comments"],
-    summary: "Get DGSW phrase",
+    tags: ["Quote"],
+    summary: "Get DGSW people Quote",
     responses: {
       "200": {
-        description: "DGSW 명언을 응답합니다.",
+        description: "DGSW 누군가의 명언을 응답합니다.",
         content: {
           "application/json": {
             schema: z.object({
@@ -26,8 +26,8 @@ export class RandomComment extends OpenAPIRoute {
   };
 
   async handle(c: AppContext) {
-    const randomIndex = Math.floor(Math.random() * COMMENTS_LIST.length);
-    const randomComment = COMMENTS_LIST[randomIndex];
+    const randomIndex = Math.floor(Math.random() * QUOTES_LIST.length);
+    const randomComment = QUOTES_LIST[randomIndex];
 
     return {
       success: true,

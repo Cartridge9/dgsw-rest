@@ -1,6 +1,6 @@
 import { fromHono } from "chanfana";
 import { Hono } from "hono";
-import { RandomComment } from "./endpoints/comment";
+import { RandomQuote } from "./endpoints/quotes";
 import html from "./page/index.html";
 import { parse } from "node-html-parser";
 
@@ -13,7 +13,7 @@ const openapi = fromHono(app, {
 });
 
 // Register OpenAPI endpoints
-openapi.get("/comment", RandomComment);
+openapi.get("/quote", RandomQuote);
 
 app.get("/", (c) => c.html(parse(html).toString()));
 
