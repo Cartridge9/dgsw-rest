@@ -21,7 +21,7 @@ export const COMMENTS_LIST: Comment[] = [
     comment: "난 이재명을 사랑해",
   },
   {
-    name: "이재명",
-    comment: "찢",
-  },
+    name: "안현우",
+    comment: "너는나를존중해야한다나는피파2700등을찍었으며어쩌고"
+  }
 ];
