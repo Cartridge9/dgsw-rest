@@ -17,7 +17,6 @@ export const QUOTES_LIST: QuoteType[] = [
   { name: "박춘우", quote: "은찬이는 여자친구가 없어요" },
   { name: "김병연", quote: "말을 잘하는 사람보다 말을 잘하는 사람이 더 좋다" },
   { name: "이윤하", quote: "봇치더락은 근본이다 (박세빈)" },
-  { name: "박세빈", quote: "봇치더락은 근본이다" },
   { name: "여승원", quote: "나는 잘생겼다." },
   { name: "박춘우", quote: "아사꿈행" },
   { name: "심서훈", quote: "낭만" },
