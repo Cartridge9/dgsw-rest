@@ -1,5 +1,7 @@
 # [DGSW-rest](https://dgsw-rest.pjmin0923.workers.dev)
 
+[한국어](README_ko.md) | [English](README.md)
+
 A free REST API for random DGSW people quotes.
 
 Built with [Cloudflare Workers](https://workers.cloudflare.com/).
@@ -49,3 +51,4 @@ Or you can use [goole form](https://docs.google.com/forms/d/e/1FAIpQLSeCnzODlkZc
 
 All data is independent of the developer's opinion.
 Anonymity is guaranteed for all quote registrations.
+**In addition, all data cannot be deleted or modified.**
