@@ -3,10 +3,11 @@ import { z } from "zod";
 import { type AppContext } from "../types";
 import { QUOTES_LIST } from "../data/quotes-list";
 
+// 인메모리 정답 저장소 (Cloudflare Workers isolate 간 상태 공유 안됨 - 알려진 제한사항)
 const answerStore = new Map<string, { correctAnswer: string; expiresAt: number }>();
 
 function generateId(): string {
-  return Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+  return crypto.randomUUID();
 }
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -57,9 +58,9 @@ export class Quiz extends OpenAPIRoute {
     const correctQuote = QUOTES_LIST[randomIndex];
 
     const uniqueNames = [...new Set(QUOTES_LIST.map((q) => q.name))];
-    const wrongNames = shuffleArray(
-      uniqueNames.filter((name) => name !== correctQuote.name)
-    ).slice(0, 3);
+    const otherNames = uniqueNames.filter((name) => name !== correctQuote.name);
+    const choiceCount = Math.min(3, otherNames.length);
+    const wrongNames = shuffleArray(otherNames).slice(0, choiceCount);
 
     const choices = shuffleArray([correctQuote.name, ...wrongNames]);
 
@@ -125,16 +126,18 @@ export class QuizAnswer extends OpenAPIRoute {
     },
   };
 
-  async handle(c: AppContext) {
-    const data = await c.req.json();
-    const { answerId, answer } = data;
+  async handle(_c: AppContext) {
+    cleanExpiredAnswers();
+
+    const data = await this.getValidatedData<typeof this.schema>();
+    const { answerId, answer } = data.body;
 
     const stored = answerStore.get(answerId);
     if (!stored || stored.expiresAt < Date.now()) {
       if (stored) answerStore.delete(answerId);
-      return c.json(
+      return Response.json(
         { success: false, error: "유효하지 않거나 만료된 퀴즈입니다." },
-        400
+        { status: 400 }
       );
     }
 
