@@ -110,12 +110,16 @@ export class QuizOpen extends OpenAPIRoute {
     const randomIndex = Math.floor(Math.random() * QUOTES_LIST.length);
     const correctQuote = QUOTES_LIST[randomIndex];
 
+    const CHOSUNG = [
+      'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ',
+      'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ',
+    ];
     const hint = correctQuote.name
       .split("")
       .map((ch) => {
         const code = ch.charCodeAt(0);
         if (code >= 0xAC00 && code <= 0xD7A3) {
-          return String.fromCharCode(Math.floor((code - 0xAC00) / 588) + 0x3131);
+          return CHOSUNG[Math.floor((code - 0xAC00) / 588)];
         }
         return "*";
       })
